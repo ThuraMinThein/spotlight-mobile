@@ -10,6 +10,7 @@ export default defineSchema({
         image: v.string(),
         followers: v.number(),
         following: v.number(),
+        posts: v.number(),
         clerkId: v.string(),
     }).index("by_clerkId", ["clerkId"]),
 
