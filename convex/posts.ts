@@ -68,6 +68,7 @@ export const getFeedPosts = query({
                     author,
                     isLiked: !!like,
                     isBookMarked: !!bookMark,
+                    isOwner: post.userId === currentUser._id,
                 }
             })
         )
