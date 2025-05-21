@@ -1,7 +1,10 @@
 import { COLORS } from '@/constants/theme';
+import { api } from '@/convex/_generated/api';
 import { styles } from '@/styles/create.style';
 import { useUser } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
+import { useMutation } from 'convex/react';
+import * as FileSystem from 'expo-file-system';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
@@ -29,8 +32,36 @@ export default function CreateScreen() {
         }
     }
 
-    const handleShare = () => {
+    const generateUploadUrl = useMutation(api.posts.generateUploadUrl);
+    const createPost = useMutation(api.posts.createPost);
 
+    const handleShare = async () => {
+        if (!selectImage) return;
+
+        try {
+            setIsSharing(true);
+            const uploadUrl = await generateUploadUrl();
+
+            const uploadResult = await FileSystem.uploadAsync(uploadUrl,
+                selectImage, {
+                httpMethod: 'POST',
+                uploadType: FileSystem.FileSystemUploadType.BINARY_CONTENT,
+                mimeType: 'image/jpeg',
+            })
+
+            if (uploadResult.status !== 200) {
+                throw new Error("Failed to upload image");
+            }
+
+            const { storageId } = JSON.parse(uploadResult.body);
+            await createPost({ storageId, caption });
+            router.push("/(tabs)");
+
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsSharing(false);
+        }
     }
 
     if (!selectImage) {
@@ -56,7 +87,7 @@ export default function CreateScreen() {
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.container}
-            keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+            keyboardVerticalOffset={20}
         >
             <View style={styles.contentContainer}>
 
