@@ -28,22 +28,13 @@ export default function Index() {
         </TouchableOpacity>
       </View>
 
-      <ScrollView
+      <FlatList
+        data={posts}
+        renderItem={({ item }) => <Posts post={item} />}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: 100,
-        }}
-      >
-
-        <FlatList
-          data={posts}
-          renderItem={({ item }) => <Posts post={item} />}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 60 }}
-          ListHeaderComponent={<StoriesSession />}
-        />
-
-      </ScrollView>
+        contentContainerStyle={{ paddingBottom: 60 }}
+        ListHeaderComponent={<StoriesSession />}
+      />
 
     </View>
   );
