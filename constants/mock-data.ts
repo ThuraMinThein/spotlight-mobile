@@ -2,19 +2,19 @@ export const STORIES = [
     {
         id: "1",
         username: "You",
-        avatar: "https://unsplash.com/photos/a-cartoon-character-with-a-weird-haircut-G2Qjx1y9aAM",
-        hasStory: true,
+        avatar: "https://th.bing.com/th?q=Computer+User+Avatar&w=120&h=120&c=1&rs=1&qlt=70&o=7&cb=1&dpr=1.3&pid=InlineBlock&rm=3&mkt=en-WW&cc=MM&setlang=en&adlt=moderate&t=1&mw=247",
+        hasStory: false,
     },
     {
         id: "2",
         username: "Jane Doe",
-        avatar: "https://unsplash.com/photos/man-in-black-button-up-shirt-ZHvM3XIOHoE",
+        avatar: "https://th.bing.com/th?q=IPhone+Avatar&w=120&h=120&c=1&rs=1&qlt=70&o=7&cb=1&dpr=1.3&pid=InlineBlock&rm=3&mkt=en-WW&cc=MM&setlang=en&adlt=moderate&t=1&mw=247",
         hasStory: true,
     },
     {
         id: "3",
         username: "John Smith",
-        avatar: "https://picsum.photos/200/300",
+        avatar: "https://th.bing.com/th?q=A%26I+Human+Avatar&w=120&h=120&c=1&rs=1&qlt=70&o=7&cb=1&dpr=1.3&pid=InlineBlock&rm=3&mkt=en-WW&cc=MM&setlang=en&adlt=moderate&t=1&mw=247",
         hasStory: true,
     },
     {

@@ -17,7 +17,7 @@ export default function Posts({ post }: { post: any }) {
                             style={styles.postAvatar}
                             contentFit='cover'
                             transition={200}
-                            cachePolicy={'memory-disk'}
+                            cachePolicy='memory-disk'
                         />
                         <Text style={styles.postUsername}>{post.author.username}</Text>
                     </TouchableOpacity>
@@ -32,46 +32,46 @@ export default function Posts({ post }: { post: any }) {
                         <Ionicons name='trash-outline' size={20} color={COLORS.primary} />
                     </TouchableOpacity>
                 }
+            </View>
 
-                <Image
-                    source={post.imageUrl}
-                    style={styles.postImage}
-                    contentFit='cover'
-                    transition={200}
-                    cachePolicy={'memory-disk'}
-                />
+            <Image
+                source={post.imageUrl}
+                style={styles.postImage}
+                contentFit='cover'
+                transition={200}
+                cachePolicy='memory-disk'
+            />
 
-                <View style={styles.postActions}>
-                    <View style={styles.postActionsLeft}>
-                        <TouchableOpacity>
-                            <Ionicons name='heart-outline' size={24} color={COLORS.white} />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Ionicons name='chatbubble-outline' size={24} color={COLORS.white} />
-                        </TouchableOpacity>
+            <View style={styles.postActions}>
+                <View style={styles.postActionsLeft}>
+                    <TouchableOpacity>
+                        <Ionicons name='heart-outline' size={24} color={COLORS.white} />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Ionicons name='chatbubble-outline' size={24} color={COLORS.white} />
+                    </TouchableOpacity>
+                </View>
+                <TouchableOpacity>
+                    <Ionicons name='bookmark-outline' size={24} color={COLORS.white} />
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.postInfo}>
+                <Text style={styles.likesText}>{post.likes === 0 ? "Be the first to like" : `${post.like} likes`}</Text>
+                {post.caption && (
+                    <View style={styles.captionContainer}>
+                        <Text style={styles.captionUsername}>{post.author.username}:</Text>
+                        <Text style={styles.captionText}>{post.caption}</Text>
                     </View>
-                    <TouchableOpacity>
-                        <Ionicons name='bookmark-outline' size={24} color={COLORS.white} />
-                    </TouchableOpacity>
-                </View>
+                )}
 
-                <View style={styles.postInfo}>
-                    <Text style={styles.likesText}>{post.likes === 0 ? "Be the first to like" : `${post.like} likes`}</Text>
-                    {post.caption && (
-                        <View style={styles.captionContainer}>
-                            <Text style={styles.captionUsername}>{post.author.username}</Text>
-                            <Text style={styles.captionText}>{post.caption}</Text>
-                        </View>
-                    )}
-
-                    <TouchableOpacity>
-                        <Text style={styles.commentsText}>View all {post.comments} comments</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.timeAgo}>{post.createdAt}</Text>
-
-                </View>
+                <TouchableOpacity>
+                    <Text style={styles.commentsText}>View all {post.comments} comments</Text>
+                </TouchableOpacity>
+                <Text style={styles.timeAgo}>{post.createdAt}</Text>
 
             </View>
+
 
         </View>
     )

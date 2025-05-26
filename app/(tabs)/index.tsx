@@ -41,11 +41,9 @@ export default function Index() {
           style={styles.storiesContainer}
         >
           {
-            STORIES.map((story) => {
-              return (
-                <Story key={story.id} story={story} />
-              )
-            })
+            STORIES.map((story) =>
+              <Story key={story.id} story={story} />
+            )
           }
         </ScrollView>
 
