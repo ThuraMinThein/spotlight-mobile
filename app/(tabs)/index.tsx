@@ -5,7 +5,7 @@ import { styles } from "@/styles/feed.style";
 import { useAuth } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "convex/react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Loader } from "../components/Loader";
 import Posts from "../components/Posts";
 import Story from "../components/Story";
@@ -35,28 +35,34 @@ export default function Index() {
         }}
       >
 
-        <ScrollView
+        <FlatList
+          data={posts}
+          renderItem={({ item }) => <Posts post={item} />}
           showsVerticalScrollIndicator={false}
-          horizontal
-          style={styles.storiesContainer}
-        >
-          {
-            STORIES.map((story) =>
-              <Story key={story.id} story={story} />
-            )
-          }
-        </ScrollView>
-
-        {
-          posts?.map((post) =>
-            <Posts key={post._id} post={post} />
-          )
-        }
+          contentContainerStyle={{ paddingBottom: 60 }}
+          ListHeaderComponent={<StoriesSession />}
+        />
 
       </ScrollView>
 
     </View>
   );
+}
+
+const StoriesSession = () => {
+  return (
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      horizontal
+      style={styles.storiesContainer}
+    >
+      {
+        STORIES.map((story) =>
+          <Story key={story.id} story={story} />
+        )
+      }
+    </ScrollView>
+  )
 }
 
 const NoPostsFound = () => {
