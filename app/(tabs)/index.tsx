@@ -10,6 +10,8 @@ import { Loader } from "../components/Loader";
 import Posts from "../components/Posts";
 import Story from "../components/Story";
 
+// youtube => 3: 58:17
+
 export default function Index() {
   const { signOut } = useAuth();
 
