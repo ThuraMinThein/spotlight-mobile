@@ -1,14 +1,13 @@
-import { STORIES } from "@/constants/mock-data";
 import { COLORS } from "@/constants/theme";
 import { api } from "@/convex/_generated/api";
 import { styles } from "@/styles/feed.style";
 import { useAuth } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "convex/react";
-import { FlatList, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { Loader } from "../components/Loader";
 import Posts from "../components/Posts";
-import Story from "../components/Story";
+import StoriesSession from "../components/Stories";
 
 // youtube => 3: 58:17
 
@@ -40,22 +39,6 @@ export default function Index() {
 
     </View>
   );
-}
-
-const StoriesSession = () => {
-  return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      horizontal
-      style={styles.storiesContainer}
-    >
-      {
-        STORIES.map((story) =>
-          <Story key={story.id} story={story} />
-        )
-      }
-    </ScrollView>
-  )
 }
 
 const NoPostsFound = () => {
