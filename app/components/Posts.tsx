@@ -41,6 +41,11 @@ export default function Posts({ post }: PostProps) {
 
     const toggleLike = useMutation(api.posts.toggleLike);
     const toggleBookmark = useMutation(api.bookmarks.toggleBookmark);
+    const deletePost = useMutation(api.posts.deletePost);
+
+    // const { user } = useUser();
+
+    // const currentUser = useQuery(api.users.getUserByClerkId, user ? { clerkId: user?.id } : 'skip');
 
     const handleLike = async () => {
         try {
@@ -56,6 +61,14 @@ export default function Posts({ post }: PostProps) {
         const newIsBookmark = await toggleBookmark({ postId: post._id });
 
         setIsBookMarked(newIsBookmark);
+    }
+
+    const handleDelete = async () => {
+        try {
+            await deletePost({ postId: post._id });
+        } catch (error) {
+            console.log("delete post error: ", error);
+        }
     }
 
     return (
@@ -75,7 +88,7 @@ export default function Posts({ post }: PostProps) {
                 </Link>
 
                 {post.isOwner ?
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={handleDelete}>
                         <Ionicons name='trash-outline' size={20} color={COLORS.primary} />
                     </TouchableOpacity>
                     :
