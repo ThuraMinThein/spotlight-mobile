@@ -2,9 +2,11 @@ import { COLORS } from "@/constants/theme";
 import { api } from "@/convex/_generated/api";
 import { styles } from "@/styles/feed.style";
 import { useAuth } from "@clerk/clerk-expo";
+import { convexQuery } from "@convex-dev/react-query";
 import { Ionicons } from "@expo/vector-icons";
-import { useQuery } from "convex/react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { FlatList, RefreshControl, Text, TouchableOpacity, View } from "react-native";
 import { Loader } from "../components/Loader";
 import Posts from "../components/Posts";
 import StoriesSession from "../components/Stories";
@@ -13,11 +15,21 @@ import StoriesSession from "../components/Stories";
 
 export default function Index() {
   const { signOut } = useAuth();
+  const [refreshing, setRefreshing] = useState(false);
+  const queryClient = useQueryClient();
 
-  const posts = useQuery(api.posts.getFeedPosts);
+  const { data: posts, isLoading } = useQuery(
+    convexQuery(api.posts.getFeedPosts, {})
+  );
 
-  if (posts === undefined) return <Loader />;
-  if (posts === null) return <NoPostsFound />;
+  if (isLoading) return <Loader />;
+  if (!posts) return <NoPostsFound />;
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await queryClient.invalidateQueries();
+    setRefreshing(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -35,6 +47,13 @@ export default function Index() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 60 }}
         ListHeaderComponent={<StoriesSession />}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={COLORS.primary}
+          />
+        }
       />
 
     </View>

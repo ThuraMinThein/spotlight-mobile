@@ -34,8 +34,6 @@ type PostProps = {
 export default function Posts({ post }: PostProps) {
 
     const [isLiked, setIsLiked] = useState(post.isLiked);
-    const [likeCount, setLikeCount] = useState(post.likes);
-    const [commentCount, setCommentCount] = useState(post.comments);
     const [showComment, setShowComment] = useState(false);
     const [isBookMarked, setIsBookMarked] = useState(post.isBookMarked);
 
@@ -51,7 +49,6 @@ export default function Posts({ post }: PostProps) {
         try {
             const liked = await toggleLike({ postId: post._id })
             setIsLiked(liked);
-            setLikeCount((prev) => prev + (liked ? 1 : -1));
         } catch (error) {
             console.log("like post error: ", error);
         }
@@ -126,7 +123,7 @@ export default function Posts({ post }: PostProps) {
             </View>
 
             <View style={styles.postInfo}>
-                <Text style={styles.likesText}>{likeCount === 0 ? "Be the first to like" : `${likeCount} likes`}</Text>
+                <Text style={styles.likesText}>{post.likes === 0 ? "Be the first to like" : `${post.likes} likes`}</Text>
                 {post.caption && (
                     <View style={styles.captionContainer}>
                         <Text style={styles.captionUsername}>{post.author.username}:</Text>
@@ -134,9 +131,9 @@ export default function Posts({ post }: PostProps) {
                     </View>
                 )}
 
-                {commentCount > 0 &&
+                {post.comments > 0 &&
                     <TouchableOpacity onPress={() => setShowComment(true)}>
-                        <Text style={styles.commentsText}>View {commentCount} comments</Text>
+                        <Text style={styles.commentsText}>View {post.comments} comments</Text>
                     </TouchableOpacity>
                 }
 
@@ -149,7 +146,6 @@ export default function Posts({ post }: PostProps) {
                 postId={post._id}
                 visible={showComment}
                 onClose={() => setShowComment(false)}
-                onCommentAdded={() => setCommentCount(prev => prev + 1)}
             />
 
 

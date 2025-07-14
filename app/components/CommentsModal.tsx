@@ -9,15 +9,14 @@ import { FlatList, KeyboardAvoidingView, Modal, Platform, Text, TextInput, Touch
 import Comment from "./Comments";
 import { Loader } from "./Loader";
 
-type CommentsModal = {
+type CommentsModalProps = {
     postId: Id<"posts">;
     visible: boolean;
     onClose: () => void;
-    onCommentAdded: () => void;
 }
 
 export default function CommentsModal(
-    { onClose, onCommentAdded, postId, visible }: CommentsModal
+    { onClose, postId, visible }: CommentsModalProps
 ) {
 
     const [newComment, setNewComment] = useState("");
@@ -34,7 +33,6 @@ export default function CommentsModal(
             })
 
             setNewComment("");
-            onCommentAdded();
         } catch (error) {
             console.log("Error adding comment", error)
         }

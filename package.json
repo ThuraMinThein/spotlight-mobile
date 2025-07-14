@@ -13,10 +13,12 @@
   "dependencies": {
     "@clerk/clerk-expo": "^2.11.6",
     "@clerk/types": "^4.59.0",
+    "@convex-dev/react-query": "^0.0.0-alpha.11",
     "@expo/vector-icons": "^14.1.0",
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
     "@react-navigation/native": "^7.1.6",
+    "@tanstack/react-query": "^5.83.0",
     "convex": "^1.24.1",
     "date-fns": "^4.1.0",
     "expo": "~53.0.9",
@@ -28,6 +30,7 @@
     "expo-image": "~2.1.7",
     "expo-image-picker": "~16.1.4",
     "expo-linking": "~7.1.5",
+    "expo-navigation-bar": "~4.2.7",
     "expo-router": "~5.0.6",
     "expo-secure-store": "^14.2.3",
     "expo-splash-screen": "~0.30.8",
@@ -44,8 +47,7 @@
     "react-native-screens": "~4.10.0",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5",
-    "svix": "^1.65.0",
-    "expo-navigation-bar": "~4.2.7"
+    "svix": "^1.65.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
