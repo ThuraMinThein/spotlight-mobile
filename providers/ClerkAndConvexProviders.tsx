@@ -1,5 +1,7 @@
 import { tokenCache } from '@/cache';
 import { ClerkLoaded, ClerkProvider, useAuth } from '@clerk/clerk-expo';
+import { ConvexQueryClient } from "@convex-dev/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConvexReactClient } from 'convex/react';
 import { ConvexProviderWithClerk } from 'convex/react-clerk';
 import React from 'react';
@@ -15,12 +17,25 @@ if (!publishedKey) {
 }
 
 
+const convexQueryClient = new ConvexQueryClient(convex);
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            queryKeyHashFn: convexQueryClient.hashFn(),
+            queryFn: convexQueryClient.queryFn(),
+        },
+    },
+});
+convexQueryClient.connect(queryClient);
+
 export default function ClerkAndConvexProviders({ children }: { children: React.ReactNode }) {
     return (
         <ClerkProvider publishableKey={publishedKey} tokenCache={tokenCache}>
             <ConvexProviderWithClerk useAuth={useAuth} client={convex}>
                 <ClerkLoaded>
-                    {children}
+                    <QueryClientProvider client={queryClient}>
+                        {children}
+                    </QueryClientProvider>
                 </ClerkLoaded>
             </ConvexProviderWithClerk>
         </ClerkProvider>

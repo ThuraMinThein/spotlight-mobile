@@ -5,13 +5,12 @@ import { useAuth } from "@clerk/clerk-expo";
 import { convexQuery } from "@convex-dev/react-query";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+// import { useQuery } from "convex/react";
 import { useState } from "react";
 import { FlatList, RefreshControl, Text, TouchableOpacity, View } from "react-native";
 import { Loader } from "../components/Loader";
 import Posts from "../components/Posts";
 import StoriesSession from "../components/Stories";
-
-// youtube => 5:24:30
 
 export default function Index() {
   const { signOut } = useAuth();
@@ -22,14 +21,18 @@ export default function Index() {
     convexQuery(api.posts.getFeedPosts, {})
   );
 
-  if (isLoading) return <Loader />;
-  if (!posts) return <NoPostsFound />;
-
   const onRefresh = async () => {
     setRefreshing(true);
     await queryClient.invalidateQueries();
     setRefreshing(false);
   };
+
+
+  // if (posts === undefined) return <Loader />;
+  // if (posts === null) return <NoPostsFound />;
+
+  if (isLoading) return <Loader />;
+  if (!posts) return <NoPostsFound />;
 
   return (
     <View style={styles.container}>
